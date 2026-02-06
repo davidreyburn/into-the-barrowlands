@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Sun Priest - The Barrowlands</title>
+    <title>The Sun Priest - Into the Barrowlands</title>
     <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -18,9 +18,9 @@
         </div>
 
         <div class="stat-block">
-            <div class="stat-line"><span>HP:</span> <span>8 + Constitution</span></div>
+            <div class="stat-line"><span>HP:</span> <span>8+Constitution</span></div>
             <div class="stat-line"><span>Damage:</span> <span>d8</span></div>
-            <div class="stat-line"><span>Load:</span> <span>10 + STR</span></div>
+            <div class="stat-line"><span>Load:</span> <span>10+STR.</span></div>
         </div>
 
         <div class="menu-box-light">
@@ -40,17 +40,21 @@
 
         <div class="menu-box-light">
             <h2>Starting Moves</h2>
+            <p>You start with these moves:</p>
 
             <div class="move">
                 <h3>The Sacred Lantern</h3>
                 <p>You bear the Lantern of Dorvos: an iron lantern on a heavy chain, housing an ever-burning cinder of holy wood. It weighs 1, has the <em>close</em> and <em>forceful</em> tags, and you may use STR or WIS when you Hack and Slash with it.</p>
                 <p>The lantern provides light (near range) and never goes out unless extinguished by powerful magic or divine curse.</p>
                 <p><strong>All your priestly moves channel through the lantern.</strong> Without it, you cannot use Radiant Healing, Holy Fire, or Turn the Darkness.</p>
+                <p><strong>The lantern seeks to return to you.</strong> If lost or stolen, the GM will tell you how it finds its way back—but every turn without it, you lose 1 Progress.</p>
+                <p><strong>The iron contains Dorvos's presence.</strong> Without the lantern, his raw power burns you from the bones outward. See <em>The Price of Loss</em>.</p>
             </div>
 
             <div class="move">
                 <h3>The Pilgrimage</h3>
                 <p>You begin with <strong>1 Progress</strong>. Mark Progress when you move toward your goal (bringing the cinder to the lowest place in the world) or overcome an obstacle on your pilgrimage.</p>
+                <p>At character creation, define what you believe "the lowest place in the world" is.</p>
                 <p>When you reach <strong>10 Progress</strong>, you have arrived. The GM will tell you what final trial awaits.</p>
                 <p><strong>Benefits:</strong></p>
                 <ul>
@@ -58,13 +62,38 @@
                     <li>At 6 Progress: +1 armor</li>
                     <li>At 9 Progress: Once per session, reroll a failed roll related to your pilgrimage</li>
                 </ul>
+                <p>If you stray from the pilgrimage or abandon it, lose all Progress and take -1 ongoing until you atone.</p>
+            </div>
+
+            <div class="move">
+                <h3>The Price of Loss</h3>
+                <p><strong>While the lantern is missing:</strong></p>
+                <ul>
+                    <li>Lose 1 Progress at the start of each of your turns</li>
+                    <li>You cannot use Radiant Healing, Holy Fire, or Turn the Darkness</li>
+                    <li>Take -1 ongoing</li>
+                </ul>
+                <p>At 0 Progress, you only suffer the -1 ongoing. You don't die yet—but Dorvos's heat builds in your marrow.</p>
+                <p><strong>If the flame is extinguished</strong>, you must rekindle it before the session ends or you die.</p>
+                <p><strong>If you end a session without the lantern</strong> (lost or extinguished), you have until the end of the next session to make <em>The Sacrifice</em> or you will Involuntarily Immolate.</p>
+            </div>
+
+            <div class="move">
+                <h3>The Sacrifice</h3>
+                <p>When your lantern is lost or extinguished at session's end, you have until the end of the next session to complete this ritual:</p>
+                <p>Choose one:</p>
+                <ul>
+                    <li><strong>Sever a limb</strong> in offering. You are permanently maimed. The GM will tell you the mechanical cost (ability penalty, reduced Load, etc.).</li>
+                    <li><strong>Bind an ally or innocent to a pyre</strong> and burn them alive. They die. You are marked.</li>
+                </ul>
+                <p>After The Sacrifice, the lantern returns (found in ash, delivered by fate) and the flame reignites. You may continue.</p>
+                <p><strong>If you refuse or cannot complete The Sacrifice by the deadline</strong>, Dorvos's unfiltered presence consumes you:</p>
+                <p>You <strong>Involuntarily Immolate</strong>. Your bones ignite, your flesh erupts. Deal 2d10 damage (ignores armor) to everything in close range, including allies. You die screaming. The lantern is destroyed. The pilgrimage ends.</p>
             </div>
 
             <div class="move">
                 <h3>Radiant Healing</h3>
-                <p>When you <strong>hold the lantern close to a wounded ally and pray for Dorvos's mercy</strong>, roll+WIS.</p>
-                <p>✴On a 10+, restore 1d8+WIS HP; they feel warmth and hope.</p>
-                <p>✴On a 7-9, restore 1d8 HP, but choose one:</p>
+                <p>When you <strong>hold the lantern close to a wounded ally and pray for Dorvos's mercy</strong>, roll+WIS. ✴On a 10+, restore 1d8+WIS HP and they feel warmth and hope. ✴On a 7-9, restore 1d8 HP but choose one:</p>
                 <ul>
                     <li>The light dims; you can't use lantern moves until you rest</li>
                     <li>You take 1d4 damage channeling too much</li>
@@ -80,39 +109,167 @@
                     <li><strong>Blinding Flash:</strong> Close range, enemies Defy Danger or are stunned</li>
                     <li><strong>Pillar of Flame:</strong> Near range, 1d10 damage, <em>forceful</em></li>
                 </ul>
-                <p>✴On a 10+, it manifests as intended.</p>
-                <p>✴On a 7-9, choose one: light dims, draw attention, or flame spreads unintended.</p>
+                <p>✴On a 10+, it manifests as intended. ✴On a 7-9, choose one:</p>
+                <ul>
+                    <li>The light dims until you rest</li>
+                    <li>You draw unwanted attention</li>
+                    <li>The flame spreads to something unintended</li>
+                </ul>
             </div>
 
             <div class="move">
                 <h3>Turn the Darkness</h3>
-                <p>When you <strong>raise the lantern and invoke Dorvos's name against creatures of shadow, undead, or evil</strong>, roll+WIS.</p>
-                <p>✴On a 10+, choose 3. ✴On a 7-9, choose 1:</p>
+                <p>When you <strong>raise the lantern and invoke Dorvos's name against creatures of shadow, undead, or evil</strong>, roll+WIS. This does not work on mortals. ✴On a 10+, choose 3. ✴On a 7-9, choose 1:</p>
                 <ul>
                     <li>They flee from the light (near range)</li>
                     <li>They cannot approach while you hold the lantern high</li>
                     <li>They take 1d6 damage each moment in the light</li>
-                    <li>One creature is banished or destroyed (GM's discretion)</li>
+                    <li>One creature is banished or destroyed (GM's discretion based on power)</li>
                 </ul>
             </div>
         </div>
 
         <div class="menu-box">
             <h2>Alignment</h2>
-            <p><strong>Lawful:</strong> Uphold a vow or tenet of Dorvos's teachings, even when it costs you.</p>
-            <p><strong>Good:</strong> Use the lantern's light to protect or heal someone, expecting nothing.</p>
-            <p><strong>Neutral:</strong> Make progress on your pilgrimage, regardless of who it helps or harms.</p>
+            <p>Choose an alignment:</p>
+            <p><strong>Lawful</strong></p>
+            <p>Uphold a vow or tenet of Dorvos's teachings, even when it costs you.</p>
+            <p><strong>Good</strong></p>
+            <p>Use the lantern's light to protect or heal someone, expecting nothing.</p>
+            <p><strong>Neutral</strong></p>
+            <p>Make progress on your pilgrimage, regardless of who it helps or harms.</p>
         </div>
 
         <div class="menu-box-light">
             <h2>Bonds</h2>
             <p>Fill in the name of one of your companions in at least one:</p>
+            <p>_____ does not believe Dorvos will return. Their doubt troubles me.</p>
+            <p>I have sworn to _____ that I will see this through, no matter the cost.</p>
+            <p>I saved _____ with the lantern's light. They have walked with me since.</p>
+            <p>_____ lost someone in the battle where Dorvos fell. I carry their grief.</p>
+        </div>
+
+        <div class="menu-box">
+            <h2>Gear</h2>
+            <p>Your Load is 10+STR.</p>
+            <p>You carry the <strong>Lantern of Dorvos</strong> (1 weight, <em>close</em>, <em>forceful</em>, ever-burning, irreplaceable).</p>
+            <p>You start with dungeon rations (5 uses, 1 weight) and pilgrim's robes (worn, 1 weight).</p>
+            <p>Choose your armor:</p>
             <ul>
-                <li>_____ does not believe Dorvos will return. Their doubt troubles me.</li>
-                <li>I have sworn to _____ that I will see this through, no matter the cost.</li>
-                <li>I saved _____ with the lantern's light. They have walked with me since.</li>
-                <li>_____ lost someone in the battle where Dorvos fell. I carry their grief.</li>
+                <li>Chainmail (1 armor, worn, 1 weight)</li>
+                <li>Leather armor (1 armor, worn, 1 weight) and a pilgrim's staff (<em>close</em>, <em>two-handed</em>, 1 weight)</li>
             </ul>
+            <p>Choose one relic from the northern empire:</p>
+            <ul>
+                <li>A tattered banner from the last battle (0 weight, reminds you why you walk)</li>
+                <li>A holy text, water-stained and burned (1 weight, contains prayers)</li>
+                <li>A hero's medal (0 weight, grants +1 forward when you invoke their memory)</li>
+            </ul>
+            <p>Choose one:</p>
+            <ul>
+                <li>Sacred oil (3 uses, 0 weight, bless weapons or cleanse)</li>
+                <li>A map claiming to show "the lowest place" (0 weight, accuracy unknown)</li>
+                <li>A second chain for the lantern (1 weight, wear as flail or hang from pole)</li>
+            </ul>
+        </div>
+
+        <div class="menu-box-light">
+            <h2>Advanced Moves</h2>
+            <p>When you gain a level from 2-5, choose from these moves:</p>
+
+            <div class="move">
+                <h3>Dorvos's Wrath</h3>
+                <p>When you use Holy Fire, you may <strong>spend 1 Progress</strong> to maximize its effect: deal maximum damage, affect everyone in range, or burn through any armor. The cinder flares—but you pay with distance from your goal.</p>
+            </div>
+
+            <div class="move">
+                <h3>Keeper of the Flame</h3>
+                <p>The lantern's light extends to <strong>far</strong> range at will. Allies within the light gain +1 ongoing against fear, corruption, or despair.</p>
+            </div>
+
+            <div class="move">
+                <h3>Chain and Iron</h3>
+                <p>When you Hack and Slash with the lantern, you may knock enemies back, disarm them, or wrap the chain around them to restrain (your choice).</p>
+            </div>
+
+            <div class="move">
+                <h3>Burn the Corruption</h3>
+                <p>When you <strong>hold the lantern against someone afflicted by poison, disease, or corruption</strong>, roll+WIS. ✴On a 10+, it is burned away and they are cleansed. ✴On a 7-9, it is weakened or slowed but not removed.</p>
+            </div>
+
+            <div class="move">
+                <h3>Martyr's Flame</h3>
+                <p>When you <strong>take damage meant for an ally</strong>, you may channel it through the lantern. Roll+CON. ✴On a 10+, the damage is absorbed and the lantern flares—you take none. ✴On a 7-9, you take half and the light dims until you rest.</p>
+            </div>
+
+            <div class="move">
+                <h3>Steady Hand</h3>
+                <p>You've carried the lantern a long way. Gain +1 armor when wielding it.</p>
+            </div>
+
+            <div class="move">
+                <h3>Beacon in Need</h3>
+                <p>When you plant the lantern and pray over it for several minutes, it sheds light and warmth for an hour without you holding it. This gives you a free hand but the lantern cannot be used as a weapon or focus during this time.</p>
+            </div>
+        </div>
+
+        <div class="menu-box">
+            <h2>Advanced Moves</h2>
+            <p>When you gain a level from 6-10, choose from these moves or the level 2-5 moves:</p>
+
+            <div class="move">
+                <h3>Rekindled Faith</h3>
+                <p><em>Replaces: Keeper of the Flame</em></p>
+                <p>Once per session, when you fail a roll related to your pilgrimage, you may pray to Dorvos for guidance. The GM offers you a choice:</p>
+                <ul>
+                    <li>Succeed at a cost (mark 2 Progress but suffer a consequence)</li>
+                    <li>Receive a sign (learn something valuable but the path grows harder)</li>
+                </ul>
+            </div>
+
+            <div class="move">
+                <h3>Lantern Strike</h3>
+                <p>The lantern now deals d10 damage. When you invoke holy fire through it in melee, add the <em>messy</em> tag.</p>
+            </div>
+
+            <div class="move">
+                <h3>Beacon in the Dark</h3>
+                <p>When you <strong>plant the lantern in the ground and declare "Here I stand"</strong>, roll+WIS. ✴On a 10+, you and allies within the light cannot be moved, frightened, or corrupted for the scene. ✴On a 7-9, as above but you cannot move while maintaining it—if you do, it ends.</p>
+            </div>
+
+            <div class="move">
+                <h3>The Sun Remembers</h3>
+                <p><em>Requires: 10 Progress</em></p>
+                <p>When you reach the lowest place with the cinder, you may attempt to commune with Dorvos. The outcome depends on your faith, your actions, and the GM's judgment. Dorvos may return, speak, or remain silent—but the world will change.</p>
+            </div>
+
+            <div class="move">
+                <h3>Immolation</h3>
+                <p>When you are <strong>dying or defeated</strong>, you may choose to let the cinder consume you.</p>
+                <p>You burst into radiant flame:</p>
+                <ul>
+                    <li>Deal 3d8 damage (ignores armor) to all enemies in near range</li>
+                    <li>All allies in near range are fully healed</li>
+                    <li>The lantern falls, still burning</li>
+                </ul>
+                <p>You die, but you become legend—the priest who burned for the sun. This is a glorious death; you do not need to make The Sacrifice, for you have become the sacrifice.</p>
+            </div>
+
+            <div class="move">
+                <h3>Saint's Resolve</h3>
+                <p>You are immune to fear, despair, and supernatural attempts to break your will. When others see your resolve, they draw strength: allies near you gain +1 to Last Breath.</p>
+            </div>
+
+            <div class="move">
+                <h3>Word of Dorvos</h3>
+                <p>When you speak a commandment in Dorvos's name ("Stand!" "Burn!" "Kneel!"), roll+WIS. ✴On a 10+, mortals who hear you must obey or Defy Danger to resist. ✴On a 7-9, they hesitate but may still act. This costs 1 Progress.</p>
+            </div>
+
+            <div class="move">
+                <h3>Unquenchable</h3>
+                <p>The cinder cannot be extinguished by mortal means—only divine intervention can darken it now.</p>
+                <p><em>The pilgrimage is everything. The lantern is your life. Dorvos is silent, but the fire still burns.</em></p>
+            </div>
         </div>
 
         <div class="nav">
@@ -120,7 +277,7 @@
         </div>
 
         <div class="footer">
-            <p>The Barrowlands Campaign</p>
+            <p>Into the Barrowlands Campaign</p>
         </div>
     </div>
 </body>

@@ -3,50 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Into the Barrowlands - A Dungeon World tabletop RPG campaign setting with custom character classes">
     <title>Into the Barrowlands - Campaign Compendium</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <div class="container">
-        <div class="menu-box">
-            <h1>⚔ INTO THE BARROWLANDS ⚔</h1>
-            <p class="flavor" style="text-align: center; border: none; padding: 0; margin-bottom: 5px;">
-                A Dungeon World Campaign
-            </p>
-            <p style="text-align: center; font-size: 0.9em; color: #d4b896; margin-bottom: 3px;">
-                Written by David Reyburn
-            </p>
-            <p style="text-align: center; font-size: 0.85em; color: #b8a688; font-style: italic;">
-                With assistance from Yorick, Assistant Gamemaster
-            </p>
-        </div>
+        <header>
+            <div class="menu-box">
+                <h1>Into the Barrowlands</h1>
+                <p class="flavor" style="text-align: center; border: none; padding: 0; margin-bottom: 5px;">
+                    A Dungeon World Campaign
+                </p>
+                <p style="text-align: center; font-size: 0.9em; color: #d4b896; margin-bottom: 3px;">
+                    Written by David Reyburn
+                </p>
+                <p style="text-align: center; font-size: 0.85em; color: #b8a688; font-style: italic;">
+                    With assistance from Yorick, Assistant Gamemaster
+                </p>
+            </div>
+        </header>
 
-        <div class="menu-box-light">
-            <h2>📜 Setting</h2>
-            <p>The world stands broken between two fallen empires. Aurelion in the north, abandoned by their sun god. The Free Kingdoms in the south, gripped by famine and drought. Between them lies the Silent Isle—and beneath it, the Barrowlands.</p>
-            <p style="margin-top: 15px;">
-                <a href="setting.html" style="font-size: 1.2em; letter-spacing: 1px;">→ Read the Full Setting</a>
-            </p>
-        </div>
+        <main>
+            <section aria-labelledby="setting-heading">
+                <div class="menu-box-light">
+                    <h2 id="setting-heading">Setting</h2>
+                    <p>The world stands broken between two fallen empires. Aurelion in the north, abandoned by their sun god. The Free Kingdoms in the south, gripped by famine and drought. Between them lies the Silent Isle—and beneath it, the Barrowlands.</p>
+                    <p style="margin-top: 15px;">
+                        <a href="setting.html" style="font-size: 1.2em; letter-spacing: 1px;" aria-label="Read the full campaign setting document">Read the Full Setting</a>
+                    </p>
+                </div>
+            </section>
 
-        <div class="menu-box">
-            <h2>⚔ Classes</h2>
-            <p style="margin-bottom: 20px;">Seven custom playbooks for desperate souls descending into the dark.</p>
-            
-            <ul class="class-list">
-                <li><a href="classes/murk-sage.html">→ Murk Sage</a></li>
-                <li><a href="classes/stone-knight.html">→ Stone Knight</a></li>
-                <li><a href="classes/cursed-fool.html">→ Cursed Fool</a></li>
-                <li><a href="classes/prophet.html">→ Prophet</a></li>
-                <li><a href="classes/blighted-scholar.html">→ Blighted Scholar</a></li>
-                <li><a href="classes/cave-wretch.html">→ Cave Wretch</a></li>
-                <li><a href="classes/sun-priest.html">→ Sun Priest</a></li>
-            </ul>
-        </div>
+            <section aria-labelledby="classes-heading">
+                <div class="menu-box">
+                    <h2 id="classes-heading">Classes</h2>
+                    <p style="margin-bottom: 20px;">Seven custom playbooks for desperate souls descending into the dark.</p>
+                    
+                    <nav aria-label="Character classes">
+                        <ul class="class-list">
+                            <li><a href="classes/murk-sage.html" aria-label="View Murk Sage class details">Murk Sage</a></li>
+                            <li><a href="classes/stone-knight.html" aria-label="View Stone Knight class details">Stone Knight</a></li>
+                            <li><a href="classes/cursed-fool.html" aria-label="View Cursed Fool class details">Cursed Fool</a></li>
+                            <li><a href="classes/prophet.html" aria-label="View Prophet class details">Prophet</a></li>
+                            <li><a href="classes/blighted-scholar.html" aria-label="View Blighted Scholar class details">Blighted Scholar</a></li>
+                            <li><a href="classes/cave-wretch.html" aria-label="View Cave Wretch class details">Cave Wretch</a></li>
+                            <li><a href="classes/sun-priest.html" aria-label="View Sun Priest class details">Sun Priest</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+        </main>
 
-        <div class="footer">
-            <p>Powered by Dungeon World • Created 2026</p>
-        </div>
+        <footer class="footer">
+            <p>Powered by Dungeon World <span aria-hidden="true">•</span> Created 2026</p>
+        </footer>
     </div>
 </body>
 </html>
