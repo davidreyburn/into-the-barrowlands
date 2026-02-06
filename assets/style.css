@@ -1,0 +1,258 @@
+/* Retro RPG Style - 1995 Aesthetic */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #2d2416;
+    background-image: 
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.1) 2px, rgba(0,0,0,.1) 4px),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.1) 2px, rgba(0,0,0,.1) 4px);
+    color: #e8d5b7;
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* FF-style menu box */
+.menu-box {
+    background: linear-gradient(135deg, #3a5a40 0%, #2d4a35 50%, #344e3b 100%);
+    border: 4px solid #8b7355;
+    border-top-color: #a68a6a;
+    border-left-color: #a68a6a;
+    border-bottom-color: #5d4e3a;
+    border-right-color: #5d4e3a;
+    box-shadow: 
+        inset 0 0 0 1px #d4c4a8,
+        inset 0 0 0 2px #3a5a40,
+        0 4px 8px rgba(0,0,0,0.5);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.menu-box-light {
+    background: linear-gradient(135deg, #c9b896 0%, #b5a382 50%, #a89674 100%);
+    border: 4px solid #5d4e3a;
+    border-top-color: #d4c4a8;
+    border-left-color: #d4c4a8;
+    border-bottom-color: #4a3d2a;
+    border-right-color: #4a3d2a;
+    box-shadow: 
+        inset 0 0 0 1px #e8d5b7,
+        inset 0 0 0 2px #a89674,
+        0 4px 8px rgba(0,0,0,0.5);
+    padding: 20px;
+    margin: 20px 0;
+    color: #2d2416;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #f4e4c1;
+    text-shadow: 
+        2px 2px 0px #1a1208,
+        3px 3px 4px rgba(0,0,0,0.8);
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #d4b896;
+    border-bottom: 3px double #8b7355;
+    padding-bottom: 10px;
+    margin: 30px 0 15px 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+h3 {
+    font-size: 1.3em;
+    color: #b8a688;
+    margin: 20px 0 10px 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+}
+
+h4 {
+    font-size: 1.1em;
+    color: #a89674;
+    margin: 15px 0 8px 0;
+}
+
+p {
+    margin-bottom: 12px;
+}
+
+a {
+    color: #7fa87f;
+    text-decoration: none;
+    border-bottom: 1px dotted #7fa87f;
+    transition: all 0.2s;
+}
+
+a:hover {
+    color: #a8d4a8;
+    border-bottom: 1px solid #a8d4a8;
+    text-shadow: 0 0 4px #7fa87f;
+}
+
+ul {
+    margin: 10px 0 10px 30px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+/* Class links on main page */
+.class-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.class-list li {
+    margin: 12px 0;
+}
+
+.class-list a {
+    display: block;
+    padding: 12px 20px;
+    background: linear-gradient(90deg, #3a5a40 0%, #2d4a35 100%);
+    border: 2px solid #5d4e3a;
+    border-left-color: #8b7355;
+    border-top-color: #8b7355;
+    color: #e8d5b7;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+.class-list a:hover {
+    background: linear-gradient(90deg, #4a6a50 0%, #3d5a45 100%);
+    border-color: #a68a6a;
+    transform: translateX(5px);
+    box-shadow: 
+        inset 0 0 10px rgba(255,255,255,0.1),
+        0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Stat block */
+.stat-block {
+    background: rgba(45, 36, 22, 0.6);
+    border: 2px solid #5d4e3a;
+    padding: 15px;
+    margin: 15px 0;
+    font-family: 'Courier New', monospace;
+}
+
+.stat-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px dotted #5d4e3a;
+}
+
+/* Move blocks */
+.move {
+    background: rgba(58, 90, 64, 0.3);
+    border-left: 4px solid #7fa87f;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.move h4 {
+    color: #a8d4a8;
+    margin-top: 0;
+}
+
+/* Flavor text */
+.flavor {
+    font-style: italic;
+    color: #b8a688;
+    border-left: 3px solid #8b7355;
+    padding-left: 15px;
+    margin: 15px 0;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: rgba(45, 36, 22, 0.4);
+}
+
+th {
+    background: #3a5a40;
+    color: #e8d5b7;
+    padding: 10px;
+    border: 2px solid #5d4e3a;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #5d4e3a;
+}
+
+tr:nth-child(even) {
+    background: rgba(58, 90, 64, 0.2);
+}
+
+/* Navigation */
+.nav {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.nav a {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    background: #3a5a40;
+    border: 2px solid #5d4e3a;
+    color: #e8d5b7;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nav a:hover {
+    background: #4a6a50;
+    border-color: #8b7355;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 2px solid #5d4e3a;
+    color: #8b7355;
+    font-size: 0.9em;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    .menu-box,
+    .menu-box-light {
+        padding: 15px;
+    }
+}
