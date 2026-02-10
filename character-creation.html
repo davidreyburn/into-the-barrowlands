@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Creation - Into the Barrowlands</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <style>
+        .creation-step {
+            margin: 30px 0;
+        }
+        
+        .stat-assignment {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-box {
+            background: rgba(45, 36, 22, 0.4);
+            border: 2px solid #5d4e3a;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-box label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #d4b896;
+        }
+        
+        .stat-box select,
+        .stat-box input {
+            width: 100%;
+            padding: 8px;
+            background: #2d2416;
+            border: 2px solid #5d4e3a;
+            color: #e8d5b7;
+            font-family: 'Courier New', monospace;
+        }
+        
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            background: #2d2416;
+            border: 2px solid #5d4e3a;
+            color: #e8d5b7;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            margin: 15px 0;
+        }
+        
+        .checkbox-group label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        button {
+            background: #3a5a40;
+            border: 3px solid #5d4e3a;
+            border-top-color: #8b7355;
+            border-left-color: #8b7355;
+            color: #e8d5b7;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            margin: 10px 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        button:hover {
+            background: #4a6a50;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+        
+        button:disabled {
+            background: #2d2416;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .hp-calculation {
+            background: rgba(58, 90, 64, 0.3);
+            border-left: 4px solid #7fa87f;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        #output-preview {
+            background: #1a1208;
+            border: 2px solid #5d4e3a;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="index.html">← Back to Main</a>
+        </div>
+
+        <div class="menu-box">
+            <h1>Character Creation</h1>
+            <p class="flavor">Forge your desperate soul for the descent into the Barrowlands.</p>
+        </div>
+
+        <div class="menu-box-light">
+            <h2>Instructions</h2>
+            <p>Follow the steps below to create your character. When complete, a markdown character sheet will be generated for download.</p>
+            <p><strong>All fields are required unless marked optional.</strong></p>
+        </div>
+
+        <form id="characterForm">
+            <!-- Step 1: Class Selection -->
+            <div class="menu-box creation-step">
+                <h2>1. Choose Your Class</h2>
+                <select id="classSelect" name="class" required>
+                    <option value="">-- Select a Class --</option>
+                    <option value="murk-sage">Murk Sage</option>
+                    <option value="stone-knight">Stone Knight</option>
+                    <option value="cursed-fool">Cursed Fool</option>
+                    <option value="prophet">Prophet</option>
+                    <option value="blighted-scholar">Blighted Scholar</option>
+                    <option value="cave-wretch">Cave Wretch</option>
+                    <option value="sun-priest">Sun Priest</option>
+                </select>
+                <p style="margin-top: 15px;">
+                    <a href="index.html#classes-heading">View all classes</a>
+                </p>
+            </div>
+
+            <!-- Step 2: Name -->
+            <div class="menu-box-light creation-step">
+                <h2>2. Name Your Character</h2>
+                <input type="text" id="charName" name="name" placeholder="Enter character name" required>
+            </div>
+
+            <!-- Step 3: Look -->
+            <div class="menu-box creation-step">
+                <h2>3. Define Your Look</h2>
+                <p>Describe your character's appearance (eyes, hair, body, clothes):</p>
+                <textarea id="look" name="look" placeholder="Example: Haunted eyes, ash-streaked hair, weathered body, scorched robes" required></textarea>
+            </div>
+
+            <!-- Step 4: Stats -->
+            <div class="menu-box-light creation-step">
+                <h2>4. Assign Your Stats</h2>
+                <p>Assign these modifiers to STR, DEX, CON, INT, WIS, CHA: <strong>+2, +1, +1, 0, 0, -1</strong></p>
+                <div class="stat-assignment">
+                    <div class="stat-box">
+                        <label for="str">STR</label>
+                        <select id="str" name="str" required>
+                            <option value="">-</option>
+                            <option value="+2">+2</option>
+                            <option value="+1">+1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
+                    <div class="stat-box">
+                        <label for="dex">DEX</label>
+                        <select id="dex" name="dex" required>
+                            <option value="">-</option>
+                            <option value="+2">+2</option>
+                            <option value="+1">+1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
+                    <div class="stat-box">
+                        <label for="con">CON</label>
+                        <select id="con" name="con" required>
+                            <option value="">-</option>
+                            <option value="+2">+2</option>
+                            <option value="+1">+1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
+                    <div class="stat-box">
+                        <label for="int">INT</label>
+                        <select id="int" name="int" required>
+                            <option value="">-</option>
+                            <option value="+2">+2</option>
+                            <option value="+1">+1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
+                    <div class="stat-box">
+                        <label for="wis">WIS</label>
+                        <select id="wis" name="wis" required>
+                            <option value="">-</option>
+                            <option value="+2">+2</option>
+                            <option value="+1">+1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
+                    <div class="stat-box">
+                        <label for="cha">CHA</label>
+                        <select id="cha" name="cha" required>
+                            <option value="">-</option>
+                            <option value="+2">+2</option>
+                            <option value="+1">+1</option>
+                            <option value="0">0</option>
+                            <option value="-1">-1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="hp-calculation" id="hpCalc">
+                    <p><strong>HP Calculation:</strong> Base HP + CON modifier</p>
+                    <p id="hpResult">Select your class and CON to calculate HP</p>
+                </div>
+            </div>
+
+            <!-- Step 5: Alignment -->
+            <div class="menu-box creation-step">
+                <h2>5. Choose Your Alignment</h2>
+                <select id="alignment" name="alignment" required>
+                    <option value="">-- Select Alignment --</option>
+                    <option value="Lawful">Lawful</option>
+                    <option value="Good">Good</option>
+                    <option value="Neutral">Neutral</option>
+                    <option value="Chaotic">Chaotic</option>
+                    <option value="Evil">Evil</option>
+                </select>
+                <p style="margin-top: 15px;"><em>Consult your class page for alignment-specific XP triggers.</em></p>
+            </div>
+
+            <!-- Step 6: Bonds -->
+            <div class="menu-box-light creation-step">
+                <h2>6. Write Your Bonds</h2>
+                <p>Fill in at least one bond with another character's name:</p>
+                <textarea id="bonds" name="bonds" placeholder="Example: Kael does not believe Dorvos will return. Their doubt troubles me." required></textarea>
+            </div>
+
+            <!-- Step 7: Starting Gear -->
+            <div class="menu-box creation-step">
+                <h2>7. Record Your Starting Gear</h2>
+                <p>List the gear your class starts with:</p>
+                <textarea id="gear" name="gear" placeholder="Consult your class page for starting gear options" required></textarea>
+            </div>
+
+            <!-- Step 8: Additional Notes -->
+            <div class="menu-box-light creation-step">
+                <h2>8. Additional Notes (Optional)</h2>
+                <textarea id="notes" name="notes" placeholder="Backstory, goals, special mechanics tracking, etc."></textarea>
+            </div>
+
+            <!-- Generate Button -->
+            <div class="menu-box" style="text-align: center;">
+                <button type="button" id="generateBtn" onclick="generateCharacterSheet()">Generate Character Sheet</button>
+            </div>
+        </form>
+
+        <!-- Output Preview -->
+        <div id="outputSection" class="hidden">
+            <div class="menu-box-light">
+                <h2>Your Character Sheet</h2>
+                <p>Copy the text below or download as a .md file:</p>
+                <div id="output-preview"></div>
+                <button type="button" onclick="downloadCharacterSheet()">Download Character Sheet (.md)</button>
+                <button type="button" onclick="copyToClipboard()">Copy to Clipboard</button>
+            </div>
+        </div>
+
+        <div class="nav">
+            <a href="index.html">← Back to Main</a>
+        </div>
+
+        <div class="footer">
+            <p>Into the Barrowlands Campaign</p>
+        </div>
+    </div>
+
+    <script>
+        const CLASS_DATA = {
+            'murk-sage': { hp: 6, damage: 'd6', load: '6+STR' },
+            'stone-knight': { hp: 10, damage: 'd10', load: '12+STR' },
+            'cursed-fool': { hp: 8, damage: 'd8', load: '8+STR' },
+            'prophet': { hp: 6, damage: 'd6', load: '6+STR' },
+            'blighted-scholar': { hp: 6, damage: 'd6', load: '8+STR' },
+            'cave-wretch': { hp: 8, damage: 'd8', load: '8+STR' },
+            'sun-priest': { hp: 8, damage: 'd8', load: '10+STR' }
+        };
+
+        let generatedMarkdown = '';
+
+        // Update HP calculation when class or CON changes
+        document.getElementById('classSelect').addEventListener('change', updateHP);
+        document.getElementById('con').addEventListener('change', updateHP);
+
+        function updateHP() {
+            const classSelect = document.getElementById('classSelect').value;
+            const conValue = document.getElementById('con').value;
+            
+            if (classSelect && conValue) {
+                const classData = CLASS_DATA[classSelect];
+                const conMod = parseInt(conValue);
+                const totalHP = classData.hp + conMod;
+                document.getElementById('hpResult').innerHTML = `<strong>${classData.hp} + ${conValue} = ${totalHP} HP</strong>`;
+            }
+        }
+
+        function generateCharacterSheet() {
+            // Validate form
+            const form = document.getElementById('characterForm');
+            if (!form.checkValidity()) {
+                alert('Please fill in all required fields.');
+                form.reportValidity();
+                return;
+            }
+
+            // Validate stat assignment
+            const stats = ['str', 'dex', 'con', 'int', 'wis', 'cha'].map(s => document.getElementById(s).value);
+            const statCount = {'+2': 0, '+1': 0, '0': 0, '-1': 0};
+            stats.forEach(s => statCount[s]++);
+            
+            if (statCount['+2'] !== 1 || statCount['+1'] !== 2 || statCount['0'] !== 2 || statCount['-1'] !== 1) {
+                alert('Stats must be assigned as: one +2, two +1, two 0, one -1');
+                return;
+            }
+
+            // Gather data
+            const className = document.getElementById('classSelect').value;
+            const classData = CLASS_DATA[className];
+            const charName = document.getElementById('charName').value;
+            const look = document.getElementById('look').value;
+            const alignment = document.getElementById('alignment').value;
+            const bonds = document.getElementById('bonds').value;
+            const gear = document.getElementById('gear').value;
+            const notes = document.getElementById('notes').value;
+            
+            const str = document.getElementById('str').value;
+            const dex = document.getElementById('dex').value;
+            const con = document.getElementById('con').value;
+            const int = document.getElementById('int').value;
+            const wis = document.getElementById('wis').value;
+            const cha = document.getElementById('cha').value;
+            
+            const conMod = parseInt(con);
+            const totalHP = classData.hp + conMod;
+            const strMod = parseInt(str);
+            const totalLoad = classData.load.replace('STR', strMod.toString());
+
+            // Generate markdown
+            const classTitle = className.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            
+            generatedMarkdown = `# ${charName}
+**Class:** ${classTitle}  
+**Campaign:** Into the Barrowlands
+
+---
+
+## Stats
+
+**STR** ${str} | **DEX** ${dex} | **CON** ${con}  
+**INT** ${int} | **WIS** ${wis} | **CHA** ${cha}
+
+**HP:** ${totalHP} / ${totalHP}  
+**Damage:** ${classData.damage}  
+**Load:** ${totalLoad}  
+**Armor:** 0
+
+**XP:** [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+
+---
+
+## Look
+
+${look}
+
+---
+
+## Alignment
+
+**${alignment}**
+
+*Consult your class page for alignment XP conditions.*
+
+---
+
+## Bonds
+
+${bonds}
+
+---
+
+## Starting Gear
+
+${gear}
+
+---
+
+## Class Moves
+
+*Record your starting moves and advanced moves as you gain them. Consult your class page.*
+
+---
+
+## Notes
+
+${notes || '*No additional notes.*'}
+
+---
+
+*Character created: ${new Date().toISOString().split('T')[0]}*
+`;
+
+            // Display output
+            document.getElementById('output-preview').textContent = generatedMarkdown;
+            document.getElementById('outputSection').classList.remove('hidden');
+            
+            // Scroll to output
+            document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadCharacterSheet() {
+            const charName = document.getElementById('charName').value.replace(/\s+/g, '-').toLowerCase();
+            const filename = `${charName}-character-sheet.md`;
+            
+            const blob = new Blob([generatedMarkdown], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(generatedMarkdown).then(() => {
+                alert('Character sheet copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy to clipboard. Please select and copy manually.');
+            });
+        }
+    </script>
+</body>
+</html>
