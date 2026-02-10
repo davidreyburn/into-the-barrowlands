@@ -4,6 +4,7 @@ let generatedMarkdown = '';
 let selectedAlignment = '';
 let selectedBonds = [];
 let gearChoices = {};
+let currentParsedGear = null;
 
 // Update HP calculation when class or CON changes
 document.getElementById('classSelect').addEventListener('change', function() {
@@ -157,6 +158,7 @@ function updateGear() {
     const parsed = parseGearText(gearText);
     console.log('Parsed gear:', parsed);
     
+    currentParsedGear = parsed; // Store for later use
     gearChoices = {}; // Reset gear choices
     
     let html = '';
@@ -177,10 +179,11 @@ function updateGear() {
         html += `<div class="gear-section"><h3>${section.title}</h3><div class="checkbox-group">`;
         section.options.forEach((option, optionIdx) => {
             const radioName = `gear_section_${sectionIdx}`;
+            const escapedOption = option.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
             html += `
                 <label>
-                    <input type="radio" name="${radioName}" value="${option}" onchange="updateGearChoice(${sectionIdx}, '${option.replace(/'/g, "\\'")}')">
-                    ${option}
+                    <input type="radio" name="${radioName}" value="${optionIdx}" onchange="updateGearChoice(${sectionIdx}, ${optionIdx})">
+                    ${escapedOption}
                 </label>
             `;
         });
@@ -192,8 +195,12 @@ function updateGear() {
     console.log('Gear HTML set successfully');
 }
 
-function updateGearChoice(sectionIndex, choice) {
-    gearChoices[sectionIndex] = choice;
+function updateGearChoice(sectionIndex, optionIndex) {
+    if (currentParsedGear && currentParsedGear.choiceSections[sectionIndex]) {
+        const option = currentParsedGear.choiceSections[sectionIndex].options[optionIndex];
+        gearChoices[sectionIndex] = option;
+        console.log('Gear choice updated:', sectionIndex, option);
+    }
 }
 
 function buildGearList() {
