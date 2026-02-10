@@ -144,6 +144,11 @@ function updateGear() {
     const gearDiv = document.getElementById('gearOptions');
     console.log('Gear div found:', gearDiv !== null);
     
+    if (!gearDiv) {
+        console.error('CRITICAL: gearOptions element not found in DOM!');
+        return;
+    }
+    
     if (!classSelect || !CLASS_DATA[classSelect]) {
         console.log('No class selected or CLASS_DATA missing');
         gearDiv.innerHTML = '<p><em>Select a class to see gear options.</em></p>';
