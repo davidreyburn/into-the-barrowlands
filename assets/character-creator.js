@@ -324,6 +324,7 @@ function generateCharacterSheet() {
     
     generatedMarkdown = `# ${charName}
 **Class:** ${classTitle}  
+**Level:** 1  
 **Campaign:** Into the Barrowlands
 
 ---
