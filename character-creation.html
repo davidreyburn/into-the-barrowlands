@@ -69,7 +69,8 @@
             cursor: pointer;
         }
         
-        .checkbox-group input[type="checkbox"] {
+        .checkbox-group input[type="checkbox"],
+        .checkbox-group input[type="radio"] {
             width: auto;
             margin-right: 8px;
         }
@@ -120,6 +121,16 @@
             white-space: pre-wrap;
             max-height: 500px;
             overflow-y: auto;
+        }
+        
+        .gear-instructions {
+            background: rgba(45, 36, 22, 0.6);
+            border: 2px solid #5d4e3a;
+            padding: 15px;
+            margin: 15px 0;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
         }
     </style>
 </head>
@@ -245,31 +256,30 @@
             </div>
 
             <!-- Step 5: Alignment -->
-            <div class="menu-box creation-step">
+            <div class="menu-box creation-step" id="alignmentSection">
                 <h2>5. Choose Your Alignment</h2>
-                <select id="alignment" name="alignment" required>
-                    <option value="">-- Select Alignment --</option>
-                    <option value="Lawful">Lawful</option>
-                    <option value="Good">Good</option>
-                    <option value="Neutral">Neutral</option>
-                    <option value="Chaotic">Chaotic</option>
-                    <option value="Evil">Evil</option>
-                </select>
-                <p style="margin-top: 15px;"><em>Consult your class page for alignment-specific XP triggers.</em></p>
+                <div id="alignmentOptions">
+                    <p><em>Select a class to see alignment options.</em></p>
+                </div>
             </div>
 
             <!-- Step 6: Bonds -->
-            <div class="menu-box-light creation-step">
-                <h2>6. Write Your Bonds</h2>
-                <p>Fill in at least one bond with another character's name:</p>
-                <textarea id="bonds" name="bonds" placeholder="Example: Kael does not believe Dorvos will return. Their doubt troubles me." required></textarea>
+            <div class="menu-box-light creation-step" id="bondsSection">
+                <h2>6. Choose Your Bonds</h2>
+                <p>Select at least one bond with another character:</p>
+                <div id="bondsOptions" class="checkbox-group">
+                    <p><em>Select a class to see bond options.</em></p>
+                </div>
             </div>
 
             <!-- Step 7: Starting Gear -->
-            <div class="menu-box creation-step">
+            <div class="menu-box creation-step" id="gearSection">
                 <h2>7. Record Your Starting Gear</h2>
-                <p>List the gear your class starts with:</p>
-                <textarea id="gear" name="gear" placeholder="Consult your class page for starting gear options" required></textarea>
+                <div id="gearInstructions" class="gear-instructions">
+                    <p><em>Select a class to see gear options.</em></p>
+                </div>
+                <p><strong>Enter the gear you've chosen:</strong></p>
+                <textarea id="gear" name="gear" placeholder="List your chosen gear" required></textarea>
             </div>
 
             <!-- Step 8: Additional Notes -->
@@ -304,170 +314,7 @@
         </div>
     </div>
 
-    <script>
-        const CLASS_DATA = {
-            'murk-sage': { hp: 6, damage: 'd6', load: '6+STR' },
-            'stone-knight': { hp: 10, damage: 'd10', load: '12+STR' },
-            'cursed-fool': { hp: 8, damage: 'd8', load: '8+STR' },
-            'prophet': { hp: 6, damage: 'd6', load: '6+STR' },
-            'blighted-scholar': { hp: 6, damage: 'd6', load: '8+STR' },
-            'cave-wretch': { hp: 8, damage: 'd8', load: '8+STR' },
-            'sun-priest': { hp: 8, damage: 'd8', load: '10+STR' }
-        };
-
-        let generatedMarkdown = '';
-
-        // Update HP calculation when class or CON changes
-        document.getElementById('classSelect').addEventListener('change', updateHP);
-        document.getElementById('con').addEventListener('change', updateHP);
-
-        function updateHP() {
-            const classSelect = document.getElementById('classSelect').value;
-            const conValue = document.getElementById('con').value;
-            
-            if (classSelect && conValue) {
-                const classData = CLASS_DATA[classSelect];
-                const conMod = parseInt(conValue);
-                const totalHP = classData.hp + conMod;
-                document.getElementById('hpResult').innerHTML = `<strong>${classData.hp} + ${conValue} = ${totalHP} HP</strong>`;
-            }
-        }
-
-        function generateCharacterSheet() {
-            // Validate form
-            const form = document.getElementById('characterForm');
-            if (!form.checkValidity()) {
-                alert('Please fill in all required fields.');
-                form.reportValidity();
-                return;
-            }
-
-            // Validate stat assignment
-            const stats = ['str', 'dex', 'con', 'int', 'wis', 'cha'].map(s => document.getElementById(s).value);
-            const statCount = {'+2': 0, '+1': 0, '0': 0, '-1': 0};
-            stats.forEach(s => statCount[s]++);
-            
-            if (statCount['+2'] !== 1 || statCount['+1'] !== 2 || statCount['0'] !== 2 || statCount['-1'] !== 1) {
-                alert('Stats must be assigned as: one +2, two +1, two 0, one -1');
-                return;
-            }
-
-            // Gather data
-            const className = document.getElementById('classSelect').value;
-            const classData = CLASS_DATA[className];
-            const charName = document.getElementById('charName').value;
-            const look = document.getElementById('look').value;
-            const alignment = document.getElementById('alignment').value;
-            const bonds = document.getElementById('bonds').value;
-            const gear = document.getElementById('gear').value;
-            const notes = document.getElementById('notes').value;
-            
-            const str = document.getElementById('str').value;
-            const dex = document.getElementById('dex').value;
-            const con = document.getElementById('con').value;
-            const int = document.getElementById('int').value;
-            const wis = document.getElementById('wis').value;
-            const cha = document.getElementById('cha').value;
-            
-            const conMod = parseInt(con);
-            const totalHP = classData.hp + conMod;
-            const strMod = parseInt(str);
-            const totalLoad = classData.load.replace('STR', strMod.toString());
-
-            // Generate markdown
-            const classTitle = className.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-            
-            generatedMarkdown = `# ${charName}
-**Class:** ${classTitle}  
-**Campaign:** Into the Barrowlands
-
----
-
-## Stats
-
-**STR** ${str} | **DEX** ${dex} | **CON** ${con}  
-**INT** ${int} | **WIS** ${wis} | **CHA** ${cha}
-
-**HP:** ${totalHP} / ${totalHP}  
-**Damage:** ${classData.damage}  
-**Load:** ${totalLoad}  
-**Armor:** 0
-
-**XP:** [ ] [ ] [ ] [ ] [ ] [ ] [ ]
-
----
-
-## Look
-
-${look}
-
----
-
-## Alignment
-
-**${alignment}**
-
-*Consult your class page for alignment XP conditions.*
-
----
-
-## Bonds
-
-${bonds}
-
----
-
-## Starting Gear
-
-${gear}
-
----
-
-## Class Moves
-
-*Record your starting moves and advanced moves as you gain them. Consult your class page.*
-
----
-
-## Notes
-
-${notes || '*No additional notes.*'}
-
----
-
-*Character created: ${new Date().toISOString().split('T')[0]}*
-`;
-
-            // Display output
-            document.getElementById('output-preview').textContent = generatedMarkdown;
-            document.getElementById('outputSection').classList.remove('hidden');
-            
-            // Scroll to output
-            document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function downloadCharacterSheet() {
-            const charName = document.getElementById('charName').value.replace(/\s+/g, '-').toLowerCase();
-            const filename = `${charName}-character-sheet.md`;
-            
-            const blob = new Blob([generatedMarkdown], { type: 'text/markdown' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        function copyToClipboard() {
-            navigator.clipboard.writeText(generatedMarkdown).then(() => {
-                alert('Character sheet copied to clipboard!');
-            }).catch(err => {
-                alert('Failed to copy to clipboard. Please select and copy manually.');
-            });
-        }
-    </script>
+    <script src="assets/class-data.js"></script>
+    <script src="assets/character-creator.js"></script>
 </body>
 </html>
