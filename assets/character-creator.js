@@ -133,17 +133,25 @@ function parseGearText(gearText) {
 }
 
 function updateGear() {
+    console.log('updateGear called');
     const classSelect = document.getElementById('classSelect').value;
+    console.log('Selected class:', classSelect);
     const gearDiv = document.getElementById('gearOptions');
+    console.log('Gear div found:', gearDiv !== null);
     
     if (!classSelect || !CLASS_DATA[classSelect]) {
+        console.log('No class selected or CLASS_DATA missing');
         gearDiv.innerHTML = '<p><em>Select a class to see gear options.</em></p>';
         return;
     }
     
+    console.log('CLASS_DATA found for class');
+    
     const classData = CLASS_DATA[classSelect];
     const gearText = classData.gear;
+    console.log('Gear text length:', gearText.length);
     const parsed = parseGearText(gearText);
+    console.log('Parsed gear:', parsed);
     
     gearChoices = {}; // Reset gear choices
     
@@ -175,7 +183,9 @@ function updateGear() {
         html += '</div></div>';
     });
     
+    console.log('Setting gear HTML, length:', html.length);
     gearDiv.innerHTML = html;
+    console.log('Gear HTML set successfully');
 }
 
 function updateGearChoice(sectionIndex, choice) {
