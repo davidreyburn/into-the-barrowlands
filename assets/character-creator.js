@@ -98,22 +98,20 @@ function parseGearText(gearText) {
     };
     
     let currentSection = null;
-    let inFixedItems = false;
     
     for (let line of lines) {
         line = line.trim();
         if (!line || line === '---') continue;
         
-        // Check for "You start with:" section
-        if (line.includes('You start with:')) {
-            inFixedItems = true;
+        // Collect sentences that start with "You carry", "You start with", etc. as fixed items
+        if (line.match(/^You (carry|start with|begin with)/i)) {
+            parsed.fixedItems.push(line);
             currentSection = null;
             continue;
         }
         
         // Check for choice sections
         if (line.match(/^Choose (your|one|an?)/i)) {
-            inFixedItems = false;
             currentSection = {
                 title: line.replace(':', ''),
                 options: []
@@ -125,9 +123,7 @@ function parseGearText(gearText) {
         // Parse items (lines starting with -)
         if (line.startsWith('-')) {
             const item = line.substring(1).trim();
-            if (inFixedItems) {
-                parsed.fixedItems.push(item);
-            } else if (currentSection) {
+            if (currentSection) {
                 currentSection.options.push(item);
             }
         }
@@ -155,11 +151,13 @@ function updateGear() {
     
     // Show fixed items
     if (parsed.fixedItems.length > 0) {
-        html += '<div class="gear-section"><h3>You Start With:</h3><ul>';
+        html += '<div class="gear-section"><h3>You Start With:</h3>';
         parsed.fixedItems.forEach(item => {
-            html += `<li>${item}</li>`;
+            // Remove markdown formatting for display
+            const cleanItem = item.replace(/\*\*/g, '').replace(/\*/g, '');
+            html += `<p>${cleanItem}</p>`;
         });
-        html += '</ul></div>';
+        html += '</div>';
     }
     
     // Show choice sections with radio buttons
@@ -192,8 +190,14 @@ function buildGearList() {
     
     let gearList = [];
     
-    // Add all fixed items
-    gearList = gearList.concat(parsed.fixedItems);
+    // Add all fixed items (clean up the sentences into item format)
+    parsed.fixedItems.forEach(sentence => {
+        // Remove markdown and extract just the gear descriptions
+        const cleaned = sentence.replace(/\*\*/g, '').replace(/\*/g, '');
+        // Remove "You carry the " or "You start with " prefix
+        const withoutPrefix = cleaned.replace(/^You (carry the |start with |begin with )/i, '');
+        gearList.push(withoutPrefix);
+    });
     
     // Add selected choices
     for (let i = 0; i < parsed.choiceSections.length; i++) {
