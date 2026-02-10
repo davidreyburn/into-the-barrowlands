@@ -3,6 +3,7 @@
 let generatedMarkdown = '';
 let selectedAlignment = '';
 let selectedBonds = [];
+let gearChoices = {};
 
 // Update HP calculation when class or CON changes
 document.getElementById('classSelect').addEventListener('change', function() {
@@ -89,9 +90,55 @@ function updateSelectedBonds() {
     });
 }
 
+function parseGearText(gearText) {
+    const lines = gearText.split('\n');
+    const parsed = {
+        fixedItems: [],
+        choiceSections: []
+    };
+    
+    let currentSection = null;
+    let inFixedItems = false;
+    
+    for (let line of lines) {
+        line = line.trim();
+        if (!line || line === '---') continue;
+        
+        // Check for "You start with:" section
+        if (line.includes('You start with:')) {
+            inFixedItems = true;
+            currentSection = null;
+            continue;
+        }
+        
+        // Check for choice sections
+        if (line.match(/^Choose (your|one|an?)/i)) {
+            inFixedItems = false;
+            currentSection = {
+                title: line.replace(':', ''),
+                options: []
+            };
+            parsed.choiceSections.push(currentSection);
+            continue;
+        }
+        
+        // Parse items (lines starting with -)
+        if (line.startsWith('-')) {
+            const item = line.substring(1).trim();
+            if (inFixedItems) {
+                parsed.fixedItems.push(item);
+            } else if (currentSection) {
+                currentSection.options.push(item);
+            }
+        }
+    }
+    
+    return parsed;
+}
+
 function updateGear() {
     const classSelect = document.getElementById('classSelect').value;
-    const gearDiv = document.getElementById('gearInstructions');
+    const gearDiv = document.getElementById('gearOptions');
     
     if (!classSelect || !CLASS_DATA[classSelect]) {
         gearDiv.innerHTML = '<p><em>Select a class to see gear options.</em></p>';
@@ -99,7 +146,63 @@ function updateGear() {
     }
     
     const classData = CLASS_DATA[classSelect];
-    gearDiv.textContent = classData.gear;
+    const gearText = classData.gear;
+    const parsed = parseGearText(gearText);
+    
+    gearChoices = {}; // Reset gear choices
+    
+    let html = '';
+    
+    // Show fixed items
+    if (parsed.fixedItems.length > 0) {
+        html += '<div class="gear-section"><h3>You Start With:</h3><ul>';
+        parsed.fixedItems.forEach(item => {
+            html += `<li>${item}</li>`;
+        });
+        html += '</ul></div>';
+    }
+    
+    // Show choice sections with radio buttons
+    parsed.choiceSections.forEach((section, sectionIdx) => {
+        html += `<div class="gear-section"><h3>${section.title}</h3><div class="checkbox-group">`;
+        section.options.forEach((option, optionIdx) => {
+            const radioName = `gear_section_${sectionIdx}`;
+            html += `
+                <label>
+                    <input type="radio" name="${radioName}" value="${option}" onchange="updateGearChoice(${sectionIdx}, '${option.replace(/'/g, "\\'")}')">
+                    ${option}
+                </label>
+            `;
+        });
+        html += '</div></div>';
+    });
+    
+    gearDiv.innerHTML = html;
+}
+
+function updateGearChoice(sectionIndex, choice) {
+    gearChoices[sectionIndex] = choice;
+}
+
+function buildGearList() {
+    const classSelect = document.getElementById('classSelect').value;
+    const classData = CLASS_DATA[classSelect];
+    const gearText = classData.gear;
+    const parsed = parseGearText(gearText);
+    
+    let gearList = [];
+    
+    // Add all fixed items
+    gearList = gearList.concat(parsed.fixedItems);
+    
+    // Add selected choices
+    for (let i = 0; i < parsed.choiceSections.length; i++) {
+        if (gearChoices[i]) {
+            gearList.push(gearChoices[i]);
+        }
+    }
+    
+    return gearList.join('\n- ');
 }
 
 function generateCharacterSheet() {
@@ -133,12 +236,21 @@ function generateCharacterSheet() {
         return;
     }
     
+    // Check gear choices made
+    const classSelect = document.getElementById('classSelect').value;
+    const classData = CLASS_DATA[classSelect];
+    const parsed = parseGearText(classData.gear);
+    
+    for (let i = 0; i < parsed.choiceSections.length; i++) {
+        if (!gearChoices[i]) {
+            alert(`Please make a selection for: ${parsed.choiceSections[i].title}`);
+            return;
+        }
+    }
+    
     // Gather data
-    const className = document.getElementById('classSelect').value;
-    const classData = CLASS_DATA[className];
     const charName = document.getElementById('charName').value;
     const look = document.getElementById('look').value;
-    const gear = document.getElementById('gear').value;
     const notes = document.getElementById('notes').value;
     
     const str = document.getElementById('str').value;
@@ -153,6 +265,9 @@ function generateCharacterSheet() {
     const strMod = parseInt(str);
     const totalLoad = classData.load.replace('STR', strMod.toString());
 
+    // Build gear list
+    const gearList = buildGearList();
+    
     // Generate markdown
     const classTitle = classData.name;
     
@@ -221,7 +336,7 @@ ${bondsText.trim()}
 
 ## Starting Gear
 
-${gear}
+- ${gearList}
 
 ---
 

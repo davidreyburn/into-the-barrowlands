@@ -123,14 +123,32 @@
             overflow-y: auto;
         }
         
-        .gear-instructions {
-            background: rgba(45, 36, 22, 0.6);
+        .gear-selection {
+            margin: 20px 0;
+        }
+        
+        .gear-section {
+            background: rgba(45, 36, 22, 0.4);
             border: 2px solid #5d4e3a;
             padding: 15px;
             margin: 15px 0;
-            white-space: pre-wrap;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95em;
+        }
+        
+        .gear-section h3 {
+            color: #d4b896;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .gear-section ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        
+        .gear-section ul li {
+            margin: 5px 0;
+            color: #e8d5b7;
         }
     </style>
 </head>
@@ -274,12 +292,11 @@
 
             <!-- Step 7: Starting Gear -->
             <div class="menu-box creation-step" id="gearSection">
-                <h2>7. Record Your Starting Gear</h2>
-                <div id="gearInstructions" class="gear-instructions">
+                <h2>7. Choose Your Starting Gear</h2>
+                <p>Items you start with are listed automatically. Choose one option from each section below:</p>
+                <div id="gearOptions" class="gear-selection">
                     <p><em>Select a class to see gear options.</em></p>
                 </div>
-                <p><strong>Enter the gear you've chosen:</strong></p>
-                <textarea id="gear" name="gear" placeholder="List your chosen gear" required></textarea>
             </div>
 
             <!-- Step 8: Additional Notes -->
