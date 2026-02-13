@@ -6,6 +6,27 @@ let selectedBonds = [];
 let gearChoices = {};
 let currentParsedGear = null;
 
+// Roll random stats
+function rollStats() {
+    // Stat array: +2, +1, +1, 0, 0, -1
+    const statArray = ['+2', '+1', '+1', '0', '0', '-1'];
+    const statIds = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+    
+    // Shuffle the array using Fisher-Yates algorithm
+    for (let i = statArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [statArray[i], statArray[j]] = [statArray[j], statArray[i]];
+    }
+    
+    // Assign to dropdowns
+    statIds.forEach((id, index) => {
+        document.getElementById(id).value = statArray[index];
+    });
+    
+    // Trigger HP update
+    updateHP();
+}
+
 // Update HP calculation when class or CON changes
 document.getElementById('classSelect').addEventListener('change', function() {
     updateHP();
