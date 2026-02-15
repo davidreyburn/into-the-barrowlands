@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Into the Barrowlands</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <style>
+        .debug-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #5d4e3a;
+            background: #1a1208;
+        }
+        .debug-section h3 {
+            color: #f4e4c1;
+            margin-top: 0;
+        }
+        .status-ok {
+            color: #7fa87f;
+            font-weight: bold;
+        }
+        .status-fail {
+            color: #c45c5c;
+            font-weight: bold;
+        }
+        .status-loading {
+            color: #d4b896;
+            font-style: italic;
+        }
+        .data-preview {
+            background: #0d0805;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 3px solid #5d4e3a;
+            font-family: monospace;
+            font-size: 0.9em;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .test-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #2d2416;
+        }
+        .test-name {
+            color: #d4b896;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="menu-box">
+                <h1>Debug & Verification</h1>
+                <p class="flavor">Into the Barrowlands - Data Source Testing</p>
+            </div>
+        </header>
+
+        <nav class="nav-buttons">
+            <a href="index.html" class="button">← Back to Main</a>
+        </nav>
+
+        <main>
+            <!-- Basic Loading -->
+            <section class="debug-section">
+                <h3>1. Basic Page Loading</h3>
+                <div class="test-row">
+                    <span class="test-name">HTML Structure:</span>
+                    <span class="status-ok" id="html-status">✓ Loaded</span>
+                </div>
+                <div class="test-row">
+                    <span class="test-name">CSS Stylesheet (style.css):</span>
+                    <span class="status-loading" id="css-status">Testing...</span>
+                </div>
+                <div class="test-row">
+                    <span class="test-name">JavaScript Enabled:</span>
+                    <span class="status-ok" id="js-status">✓ Enabled</span>
+                </div>
+            </section>
+
+            <!-- Class Data JSON Files -->
+            <section class="debug-section">
+                <h3>2. Class Data JSON Files</h3>
+                <div id="class-data-tests"></div>
+                <div class="data-preview" id="class-data-preview"></div>
+            </section>
+
+            <!-- Character Creator Data -->
+            <section class="debug-section">
+                <h3>3. Character Creator Scripts</h3>
+                <div class="test-row">
+                    <span class="test-name">class-data.js:</span>
+                    <span class="status-loading" id="classdata-js-status">Testing...</span>
+                </div>
+                <div class="test-row">
+                    <span class="test-name">character-creator.js:</span>
+                    <span class="status-loading" id="creator-js-status">Testing...</span>
+                </div>
+            </section>
+
+            <!-- Images -->
+            <section class="debug-section">
+                <h3>4. Image Assets</h3>
+                <div id="image-tests"></div>
+            </section>
+
+            <!-- Pages -->
+            <section class="debug-section">
+                <h3>5. Site Pages</h3>
+                <div id="page-tests"></div>
+            </section>
+
+            <!-- Character Pages -->
+            <section class="debug-section">
+                <h3>6. Character Pages</h3>
+                <div id="character-tests"></div>
+            </section>
+
+            <!-- Summary -->
+            <section class="debug-section">
+                <h3>Summary</h3>
+                <div class="test-row">
+                    <span class="test-name">Total Tests:</span>
+                    <span id="total-tests">0</span>
+                </div>
+                <div class="test-row">
+                    <span class="test-name">Passed:</span>
+                    <span class="status-ok" id="passed-tests">0</span>
+                </div>
+                <div class="test-row">
+                    <span class="test-name">Failed:</span>
+                    <span class="status-fail" id="failed-tests">0</span>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Powered by Dungeon World • Created 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Test tracking
+        let totalTests = 0;
+        let passedTests = 0;
+        let failedTests = 0;
+
+        function markTest(element, success, message = '') {
+            totalTests++;
+            if (success) {
+                element.className = 'status-ok';
+                element.textContent = '✓ ' + (message || 'Loaded');
+                passedTests++;
+            } else {
+                element.className = 'status-fail';
+                element.textContent = '✗ ' + (message || 'Failed');
+                failedTests++;
+            }
+            updateSummary();
+        }
+
+        function updateSummary() {
+            document.getElementById('total-tests').textContent = totalTests;
+            document.getElementById('passed-tests').textContent = passedTests;
+            document.getElementById('failed-tests').textContent = failedTests;
+        }
+
+        // Test CSS
+        const testElement = document.createElement('div');
+        testElement.className = 'menu-box';
+        document.body.appendChild(testElement);
+        const computedStyle = window.getComputedStyle(testElement);
+        const hasBorder = computedStyle.border !== 'none' && computedStyle.border !== '';
+        markTest(document.getElementById('css-status'), hasBorder, hasBorder ? 'Loaded' : 'Failed to load');
+        document.body.removeChild(testElement);
+
+        // Test class data JSON files
+        const classes = [
+            'dusk-sage',
+            'stone-knight',
+            'cursed-fool',
+            'prophet-of-markkon',
+            'blighted-scholar',
+            'cave-wretch',
+            'sun-priest'
+        ];
+
+        const classDataContainer = document.getElementById('class-data-tests');
+        const classDataPreview = document.getElementById('class-data-preview');
+        let firstClassData = null;
+
+        classes.forEach(className => {
+            const row = document.createElement('div');
+            row.className = 'test-row';
+            row.innerHTML = `
+                <span class="test-name">${className}.json:</span>
+                <span class="status-loading" id="class-${className}">Loading...</span>
+            `;
+            classDataContainer.appendChild(row);
+
+            fetch(`assets/classes/${className}.json?v=${Date.now()}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    markTest(document.getElementById(`class-${className}`), true, `Loaded (${Object.keys(data).length} keys)`);
+                    if (!firstClassData) {
+                        firstClassData = data;
+                        classDataPreview.textContent = `Sample: ${className}.json\n${JSON.stringify(data, null, 2).substring(0, 500)}...`;
+                    }
+                })
+                .catch(error => {
+                    markTest(document.getElementById(`class-${className}`), false, error.message);
+                });
+        });
+
+        // Test character creator scripts
+        const scriptTests = [
+            { id: 'classdata-js-status', src: 'assets/class-data.js' },
+            { id: 'creator-js-status', src: 'assets/character-creator.js' }
+        ];
+
+        scriptTests.forEach(test => {
+            const script = document.createElement('script');
+            script.src = test.src + '?v=' + Date.now();
+            script.onload = () => markTest(document.getElementById(test.id), true, 'Loaded');
+            script.onerror = () => markTest(document.getElementById(test.id), false, 'Failed to load');
+            document.head.appendChild(script);
+        });
+
+        // Test images
+        const images = [
+            'barrowlands.png',
+            'blighted-scholar.png',
+            'cave-wretch.png',
+            'cursed-fool.png',
+            'dusk-sage.png',
+            'prophet-of-markkon.png',
+            'stone-knight.png',
+            'sun-priest.png',
+            'favicon.png'
+        ];
+
+        const imageContainer = document.getElementById('image-tests');
+        images.forEach(imageName => {
+            const row = document.createElement('div');
+            row.className = 'test-row';
+            row.innerHTML = `
+                <span class="test-name">${imageName}:</span>
+                <span class="status-loading" id="img-${imageName.replace('.', '-')}">Loading...</span>
+            `;
+            imageContainer.appendChild(row);
+
+            const img = new Image();
+            img.onload = () => markTest(document.getElementById(`img-${imageName.replace('.', '-')}`), true, `${img.width}x${img.height}`);
+            img.onerror = () => markTest(document.getElementById(`img-${imageName.replace('.', '-')}`), false, 'Not found');
+            img.src = `assets/images/${imageName}`;
+        });
+
+        // Test main pages
+        const pages = [
+            'index.html',
+            'setting.html',
+            'session-log.html',
+            'character-creation.html',
+            'quick-reference.html'
+        ];
+
+        const pageContainer = document.getElementById('page-tests');
+        pages.forEach(pageName => {
+            const row = document.createElement('div');
+            row.className = 'test-row';
+            row.innerHTML = `
+                <span class="test-name">${pageName}:</span>
+                <span class="status-loading" id="page-${pageName.replace('.', '-')}">Testing...</span>
+            `;
+            pageContainer.appendChild(row);
+
+            fetch(pageName, { method: 'HEAD' })
+                .then(response => {
+                    markTest(document.getElementById(`page-${pageName.replace('.', '-')}`), response.ok, response.ok ? 'Exists' : 'Not found');
+                })
+                .catch(error => {
+                    markTest(document.getElementById(`page-${pageName.replace('.', '-')}`), false, 'Error');
+                });
+        });
+
+        // Test character pages
+        const characters = [
+            'abbot.html',
+            'dorrmirror.html',
+            'ruth.html'
+        ];
+
+        const characterContainer = document.getElementById('character-tests');
+        characters.forEach(charName => {
+            const row = document.createElement('div');
+            row.className = 'test-row';
+            row.innerHTML = `
+                <span class="test-name">${charName}:</span>
+                <span class="status-loading" id="char-${charName.replace('.', '-')}">Testing...</span>
+            `;
+            characterContainer.appendChild(row);
+
+            fetch(`characters/${charName}`, { method: 'HEAD' })
+                .then(response => {
+                    markTest(document.getElementById(`char-${charName.replace('.', '-')}`), response.ok, response.ok ? 'Exists' : 'Not found');
+                })
+                .catch(error => {
+                    markTest(document.getElementById(`char-${charName.replace('.', '-')}`), false, 'Error');
+                });
+        });
+
+        // Add timestamp
+        console.log('Debug page loaded at:', new Date().toISOString());
+    </script>
+</body>
+</html>
