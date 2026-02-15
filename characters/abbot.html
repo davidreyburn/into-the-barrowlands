@@ -66,24 +66,83 @@
                     font-family: Georgia, serif;
                 }
                 
-                .retro-stat-value-large {
-                    font-size: 1.5em;
-                    font-weight: bold;
-                    color: #f4e4c1;
-                    text-shadow: 2px 2px 4px #000, 0 0 8px rgba(244, 228, 193, 0.3);
-                    font-family: Georgia, serif;
+                .vitals-section {
+                    margin-top: 20px;
                 }
                 
-                .retro-vital-box {
-                    background: linear-gradient(135deg, #0d0805 0%, #1a1208 50%, #0d0805 100%);
-                    border: 3px solid #5d4e3a;
-                    border-top-color: #8b7355;
-                    border-left-color: #8b7355;
-                    border-bottom-color: #3a2d1f;
-                    border-right-color: #3a2d1f;
-                    padding: 12px 15px;
+                .vitals-divider {
+                    border: 0;
+                    height: 2px;
+                    background: linear-gradient(to right, transparent, #5d4e3a 20%, #5d4e3a 80%, transparent);
+                    margin: 20px 0;
+                }
+                
+                .vital-stat-row {
+                    margin: 12px 0;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                
+                .vital-stat-label {
+                    font-weight: bold;
+                    color: #d4b896;
+                    min-width: 120px;
+                    font-size: 1em;
+                }
+                
+                .progress-bar-container {
+                    flex: 1;
+                    height: 28px;
+                    background: #0d0805;
+                    border: 2px solid #5d4e3a;
+                    border-top-color: #3a2d1f;
+                    border-left-color: #3a2d1f;
+                    border-bottom-color: #8b7355;
+                    border-right-color: #8b7355;
+                    position: relative;
+                    overflow: hidden;
+                    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+                }
+                
+                .progress-bar {
+                    height: 100%;
+                    transition: width 0.3s ease;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                }
+                
+                .progress-bar-red {
+                    background: linear-gradient(to bottom, #c45c5c 0%, #8b3a3a 50%, #c45c5c 100%);
+                    box-shadow: inset 0 0 10px rgba(255, 100, 100, 0.5);
+                }
+                
+                .progress-bar-yellow {
+                    background: linear-gradient(to bottom, #d4b896 0%, #a89674 50%, #d4b896 100%);
+                    box-shadow: inset 0 0 10px rgba(212, 184, 150, 0.5);
+                }
+                
+                .progress-bar-green {
+                    background: linear-gradient(to bottom, #7fa87f 0%, #5d8b5d 50%, #7fa87f 100%);
+                    box-shadow: inset 0 0 10px rgba(127, 168, 127, 0.5);
+                }
+                
+                .progress-bar-white {
+                    background: linear-gradient(to bottom, #f4e4c1 0%, #d4b896 50%, #f4e4c1 100%);
+                    box-shadow: inset 0 0 10px rgba(244, 228, 193, 0.5);
+                }
+                
+                .progress-bar-text {
+                    position: absolute;
+                    width: 100%;
                     text-align: center;
-                    box-shadow: inset 0 0 15px rgba(0,0,0,0.5), 0 4px 6px rgba(0,0,0,0.3);
+                    line-height: 28px;
+                    font-weight: bold;
+                    color: #f4e4c1;
+                    text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000;
+                    font-size: 0.95em;
+                    z-index: 10;
                 }
                 
                 @media (max-width: 768px) {
@@ -93,6 +152,10 @@
                     }
                     .retro-stat-value {
                         font-size: 1.5em;
+                    }
+                    .vital-stat-label {
+                        min-width: 90px;
+                        font-size: 0.9em;
                     }
                 }
             </style>
@@ -125,32 +188,57 @@
                 </div>
             </div>
             
-            <!-- Vital Stats Grid -->
-            <div class="retro-stats-container" style="margin-top: 15px;">
-                <div class="retro-vital-box">
-                    <div class="retro-stat-label">Hit Points</div>
-                    <div class="retro-stat-value-large">8 / 8</div>
+            <!-- Horizontal Rule -->
+            <hr class="vitals-divider">
+            
+            <!-- Vital Statistics with Progress Bars -->
+            <div class="vitals-section">
+                <!-- HP -->
+                <div class="vital-stat-row">
+                    <div class="vital-stat-label">Hit Points:</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-bar-red" style="width: 100.0%"></div>
+                        <div class="progress-bar-text">8 / 8</div>
+                    </div>
                 </div>
-                <div class="retro-vital-box">
-                    <div class="retro-stat-label">Damage</div>
-                    <div class="retro-stat-value-large">d8</div>
+                
+                <!-- Damage -->
+                <div class="vital-stat-row">
+                    <div class="vital-stat-label">Damage:</div>
+                    <div style="color: #f4e4c1; font-weight: bold;">d8</div>
                 </div>
-                <div class="retro-vital-box">
-                    <div class="retro-stat-label">Armor</div>
-                    <div class="retro-stat-value-large">1</div>
+                
+                <!-- Armor -->
+                <div class="vital-stat-row">
+                    <div class="vital-stat-label">Armor:</div>
+                    <div style="color: #f4e4c1; font-weight: bold;">1 🛡️</div>
                 </div>
-                <div class="retro-vital-box">
-                    <div class="retro-stat-label">Load</div>
-                    <div class="retro-stat-value-large">6 / 9</div>
+                
+                <!-- Load -->
+                <div class="vital-stat-row">
+                    <div class="vital-stat-label">Load:</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-bar-yellow" style="width: 66.66666666666666%"></div>
+                        <div class="progress-bar-text">6 / 9</div>
+                    </div>
                 </div>
-                <div class="retro-vital-box">
-                    <div class="retro-stat-label">Experience</div>
-                    <div class="retro-stat-value-large">0 / 7</div>
+                
+                <!-- XP -->
+                <div class="vital-stat-row">
+                    <div class="vital-stat-label">Experience:</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar progress-bar-green" style="width: 0.0%"></div>
+                        <div class="progress-bar-text">0 / 7</div>
+                    </div>
                 </div>
-                <div class="retro-stat-box">
-                    <div class="retro-stat-label">PILGRIMAGE</div>
-                    <div class="retro-stat-value-large">1 / 10</div>
+                
+            <div class="vital-stat-row">
+                <div class="vital-stat-label">Pilgrimage:</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar progress-bar-white" style="width: 10.0%"></div>
+                    <div class="progress-bar-text">1 / 10</div>
                 </div>
+            </div>
             </div>
         </div>
 
