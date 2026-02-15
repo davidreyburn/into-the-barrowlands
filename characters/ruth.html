@@ -25,36 +25,129 @@
         </div>
 
         <div class="menu-box">
-            <h2>Stats</h2>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0;">
-                <div style="text-align: center;">
-                    <strong>STR</strong><br>-1
+            <h2>Character Stats</h2>
+
+            <!-- Retro RPG Character Stats -->
+            <style>
+                .retro-stats-container {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 10px;
+                    margin: 20px 0;
+                }
+                
+                .retro-stat-box {
+                    background: linear-gradient(135deg, #0d0805 0%, #1a1208 50%, #0d0805 100%);
+                    border: 3px solid #5d4e3a;
+                    border-top-color: #8b7355;
+                    border-left-color: #8b7355;
+                    border-bottom-color: #3a2d1f;
+                    border-right-color: #3a2d1f;
+                    padding: 15px 10px;
+                    text-align: center;
+                    box-shadow: inset 0 0 15px rgba(0,0,0,0.5), 0 4px 6px rgba(0,0,0,0.3);
+                }
+                
+                .retro-stat-label {
+                    font-size: 0.85em;
+                    font-weight: bold;
+                    color: #a89674;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    margin-bottom: 8px;
+                    text-shadow: 1px 1px 2px #000;
+                }
+                
+                .retro-stat-value {
+                    font-size: 2em;
+                    font-weight: bold;
+                    color: #f4e4c1;
+                    text-shadow: 2px 2px 4px #000, 0 0 8px rgba(244, 228, 193, 0.3);
+                    font-family: Georgia, serif;
+                }
+                
+                .retro-stat-value-large {
+                    font-size: 1.5em;
+                    font-weight: bold;
+                    color: #f4e4c1;
+                    text-shadow: 2px 2px 4px #000, 0 0 8px rgba(244, 228, 193, 0.3);
+                    font-family: Georgia, serif;
+                }
+                
+                .retro-vital-box {
+                    background: linear-gradient(135deg, #0d0805 0%, #1a1208 50%, #0d0805 100%);
+                    border: 3px solid #5d4e3a;
+                    border-top-color: #8b7355;
+                    border-left-color: #8b7355;
+                    border-bottom-color: #3a2d1f;
+                    border-right-color: #3a2d1f;
+                    padding: 12px 15px;
+                    text-align: center;
+                    box-shadow: inset 0 0 15px rgba(0,0,0,0.5), 0 4px 6px rgba(0,0,0,0.3);
+                }
+                
+                @media (max-width: 768px) {
+                    .retro-stats-container {
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 8px;
+                    }
+                    .retro-stat-value {
+                        font-size: 1.5em;
+                    }
+                }
+            </style>
+            
+            <!-- Attributes Grid -->
+            <div class="retro-stats-container">
+                <div class="retro-stat-box">
+                    <div class="retro-stat-label">STR</div>
+                    <div class="retro-stat-value">-1</div>
                 </div>
-                <div style="text-align: center;">
-                    <strong>DEX</strong><br>+1
+                <div class="retro-stat-box">
+                    <div class="retro-stat-label">DEX</div>
+                    <div class="retro-stat-value">+1</div>
                 </div>
-                <div style="text-align: center;">
-                    <strong>CON</strong><br>0
+                <div class="retro-stat-box">
+                    <div class="retro-stat-label">CON</div>
+                    <div class="retro-stat-value">0</div>
                 </div>
-                <div style="text-align: center;">
-                    <strong>INT</strong><br>+1
+                <div class="retro-stat-box">
+                    <div class="retro-stat-label">INT</div>
+                    <div class="retro-stat-value">+1</div>
                 </div>
-                <div style="text-align: center;">
-                    <strong>WIS</strong><br>+2
+                <div class="retro-stat-box">
+                    <div class="retro-stat-label">WIS</div>
+                    <div class="retro-stat-value">+2</div>
                 </div>
-                <div style="text-align: center;">
-                    <strong>CHA</strong><br>0
+                <div class="retro-stat-box">
+                    <div class="retro-stat-label">CHA</div>
+                    <div class="retro-stat-value">0</div>
                 </div>
             </div>
-        </div>
-
-        <div class="menu-box-light">
-            <h2>Vital Statistics</h2>
-            <p><strong>HP:</strong> 6 / 6</p>
-            <p><strong>Damage:</strong> d6</p>
-            <p><strong>Armor:</strong> 0</p>
-            <p><strong>Load:</strong> 3 / 6</p>
-            <p><strong>XP:</strong> 0 / 7</p>
+            
+            <!-- Vital Stats Grid -->
+            <div class="retro-stats-container" style="margin-top: 15px;">
+                <div class="retro-vital-box">
+                    <div class="retro-stat-label">Hit Points</div>
+                    <div class="retro-stat-value-large">6 / 6</div>
+                </div>
+                <div class="retro-vital-box">
+                    <div class="retro-stat-label">Damage</div>
+                    <div class="retro-stat-value-large">d6</div>
+                </div>
+                <div class="retro-vital-box">
+                    <div class="retro-stat-label">Armor</div>
+                    <div class="retro-stat-value-large">0</div>
+                </div>
+                <div class="retro-vital-box">
+                    <div class="retro-stat-label">Load</div>
+                    <div class="retro-stat-value-large">3 / 6</div>
+                </div>
+                <div class="retro-vital-box">
+                    <div class="retro-stat-label">Experience</div>
+                    <div class="retro-stat-value-large">0 / 7</div>
+                </div>
+            </div>
         </div>
 
         <div class="menu-box">
